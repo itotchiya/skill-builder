@@ -4,7 +4,7 @@
   "description": "Domain-adaptive AI skill generator. Builds structured, self-contained skill folders from documentation, designs, and expert knowledge — for any LLM to read.",
   "author": {
     "name": "Mustapha Boufous",
-    "email": "admin@havetdigital.fr"
+    "email": "must.boufous@gmail.com"
   },
   "homepage": "https://github.com/itotchiya",
   "keywords": ["skills", "documentation", "ai", "knowledge-base", "adaptive", "skill-builder"],
