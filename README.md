@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🧠 Skill Builder
 
@@ -47,18 +47,18 @@ git clone https://github.com/itotchiya/skill-builder.git
 
 ### Step 3 — Set your vault path *(optional)*
 
-By default, skills are saved to `~/Agent-skills`. To change this, edit the file:
+By default, skills are saved to `~/Agent-skills`. To change this, edit:
 
 ```
 config/vault-path.txt
 ```
 
-**Windows example:**
+**Windows:**
 ```
 C:\Users\YourName\Workspace\Agent-skills
 ```
 
-**macOS / Linux example:**
+**macOS / Linux:**
 ```
 /Users/yourname/Documents/Agent-skills
 ```
@@ -92,10 +92,10 @@ That's it. The plugin takes over from there.
 When you run `/build`, the plugin follows a 4-phase process:
 
 ```
-Phase 1 — DETECT        Identifies the domain and activates a matching expert agent persona
-Phase 2 — SCOPE         Asks you 5–20 targeted questions to understand depth and focus
-Phase 3 — GENERATE      Scrapes docs / processes references / builds structured content
-Phase 4 — STORE         Saves the skill to your vault (Obsidian or local folder)
+Phase 1 — DETECT     Identifies the domain, activates a matching expert agent persona
+Phase 2 — SCOPE      Asks you 5–20 targeted questions to understand depth and focus
+Phase 3 — GENERATE   Scrapes docs / processes references / builds structured content
+Phase 4 — STORE      Saves the skill to your vault (Obsidian or local folder)
 ```
 
 ### Storage detection
@@ -121,7 +121,7 @@ The plugin ships with **160+ specialized agent personas** across 16 domains. The
 | Sales | Deal Strategist, Outbound Specialist, Discovery Coach |
 | Legal | Compliance Auditor, Contract Reviewer |
 | Product | Product Manager, Trend Researcher, Sprint Prioritizer |
-| ... | 10+ more domains |
+| + 10 more | Spatial Computing, Game Dev, Paid Media, Support, Testing... |
 
 The active agent is always announced before questioning begins so you can redirect if needed.
 
@@ -181,7 +181,7 @@ Once built, load any skill in any AI tool with:
 
 ## 🤝 Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+Pull requests are welcome. For major changes, please open an issue first.
 
 ---
 
@@ -198,4 +198,3 @@ Made with ❤️ for the Claude Cowork community
 **[⭐ Star this repo](https://github.com/itotchiya/skill-builder)** if it helps you build smarter AI workflows
 
 </div>
-]]>
