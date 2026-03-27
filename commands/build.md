@@ -15,7 +15,7 @@ If no topic was provided, ask the user what skill they want to build before proc
 
 ---
 
-## STEP 0 — Detect Storage Mode
+## STEP 0 — Detect Storage Location
 
 Before anything else, determine where the skill will be saved.
 
@@ -34,18 +34,18 @@ Attempt to call an Obsidian MCP tool (try `mcp__obsidian__list_files_in_vault`, 
 
 Ask the user:
 > "Obsidian is connected. Where would you like to store this skill?"
-> - **Obsidian vault** — saved inside your Obsidian vault in the `Agent-skills` folder
-> - **Local folder** — saved to a folder on your computer
+> - **Obsidian vault** — saved inside your Obsidian vault under `.agents/skills/`
+> - **Local folder** — saved to a folder on your computer under `.agents/skills/`
 
 If they choose **Obsidian vault**:
 - Ask Obsidian for the vault root path
-- Set `SKILL_BASE = {vault-root}/Agent-skills`
+- Set `AGENTS_ROOT = {vault-root}/.agents`
 - Use Obsidian MCP tools to create all files
 
 If they choose **Local folder**:
 - Read the configured path: `cat "${CLAUDE_PLUGIN_ROOT}/config/vault-path.txt" | tr -d '[:space:]'`
-- If path is default (`~/ai-skill-builder-vault`) or doesn't exist, ask: "What folder should I save skills to?" (free text)
-- Set `SKILL_BASE = {chosen-path}/Agent-skills`
+- If path is default or doesn't exist, ask: "What folder should I save skills to?" (free text)
+- Set `AGENTS_ROOT = {chosen-path}/.agents`
 - Use Bash/Write tools to create files
 
 ---
@@ -58,24 +58,27 @@ CONFIGURED_PATH=$(cat "${CLAUDE_PLUGIN_ROOT}/config/vault-path.txt" | tr -d '[:s
 ```
 
 If the path is the default placeholder or does not exist on disk, ask the user:
-> "No Obsidian vault is connected. Where should I save this skill? (Enter a folder path)"
+> "Where should I save this skill? (Enter a folder path)"
 
-Set `SKILL_BASE = {chosen-or-configured-path}/Agent-skills`
+Set `AGENTS_ROOT = {chosen-or-configured-path}/.agents`
 Use Bash/Write tools to create files.
 
 ---
 
-**In all cases, the skills folder is always named `Agent-skills`.**
+**In all cases:**
+- The agents folder is always named `.agents`
+- Skills always go inside `.agents/skills/{skill-name}/`
+- The master index is always at `.agents/SKILL.md`
 
-Final skill path: `{SKILL_BASE}/{category}/{skill-name}/`
+Final skill path: `{AGENTS_ROOT}/skills/{skill-name}/`
 
-Save the resolved base path for use in all subsequent steps.
+Save the resolved `AGENTS_ROOT` path for use in all subsequent steps.
 
 ---
 
 ## STEP 1 — Domain Detection
 
-Analyze "$ARGUMENTS" and identify the skill domain. Map to:
+Analyze "$ARGUMENTS" and identify the skill domain. Map to one of:
 `engineering`, `design`, `marketing`, `legal`, `finance`, `sales`, `product`, `data`, `custom`
 
 Use the domain mapping table in SKILL.md. If ambiguous, ask the user before proceeding.
@@ -138,7 +141,12 @@ Read before writing any file:
 - `${CLAUDE_PLUGIN_ROOT}/skills/skill-builder/references/folder-templates.md` ← **Folder structure**
 - `${CLAUDE_PLUGIN_ROOT}/skills/skill-builder/references/domain-profiles.md` ← **Quality checklist**
 
-Create the skill at: `{SKILL_BASE}/{category}/{skill-name}/`
+Create the skill at: `{AGENTS_ROOT}/skills/{skill-name}/`
+
+**Ensure the `.agents/skills/` directory exists before writing:**
+```bash
+mkdir -p "{AGENTS_ROOT}/skills/{skill-name}/references"
+```
 
 **Storage method depends on where the user chose to save:**
 
@@ -155,15 +163,33 @@ Every `.md` file must be MD Blueprint compliant (R1–R16):
 
 ---
 
-## STEP 6 — Update Agent-skills Index
+## STEP 6 — Update Master Index
 
-After creating the skill:
+After creating the skill, update the master index at `{AGENTS_ROOT}/SKILL.md`.
 
-**Update category index:** `{SKILL_BASE}/{category}/_INDEX.md`
-Create if it doesn't exist. Add the new skill row.
+Create it if it doesn't exist. The format is:
 
-**Update root index:** `{SKILL_BASE}/INDEX.md`
-Create if it doesn't exist. Update category count and "Recently Added".
+```markdown
+---
+title: "Agent Skills Index"
+description: "Master index of all AI skills in this .agents vault"
+last_updated: "{date}"
+total_skills: {count}
+---
+
+# Agent Skills Index
+
+> All skills built by the Skill Builder plugin — load any skill by pointing your AI tool to its SKILL.md file.
+
+## Skills
+
+| Skill | Domain | Description | Last Updated |
+|---|---|---|---|
+| [nextjs-15](./skills/nextjs-15/SKILL.md) | engineering | Next.js 15 core concepts and patterns | 2026-03-27 |
+| [skill-name](./skills/{skill-name}/SKILL.md) | {domain} | {one-line description} | {date} |
+```
+
+Add the new skill as a new row in the table. Update `last_updated` and `total_skills`.
 
 ---
 
@@ -171,13 +197,16 @@ Create if it doesn't exist. Update category count and "Recently Added".
 
 ```
 ✅ Skill Built: [{skill-name}]
-📁 Location: {SKILL_BASE}/{category}/{skill-name}/
+📁 Location: {AGENTS_ROOT}/skills/{skill-name}/
 💾 Stored in: {Obsidian vault | Local folder}
 📄 Files: {count} — {list}
 🤖 Agent: {agent-name}
 📐 Format: MD Blueprint v2.0 compliant
 
 To use in any AI tool:
-"Load the {skill-name} skill from Agent-skills"
-→ {SKILL_BASE}/{category}/{skill-name}/SKILL.md
+"Load the {skill-name} skill from .agents"
+→ {AGENTS_ROOT}/skills/{skill-name}/SKILL.md
+
+Master index updated:
+→ {AGENTS_ROOT}/SKILL.md
 ```

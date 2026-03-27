@@ -1,5 +1,30 @@
 # Folder Templates
 
+## `.agents` Vault Structure
+
+The root vault structure is always:
+
+```
+{chosen-location}/
+└── .agents/
+    ├── SKILL.md                    ← master index of all skills (auto-updated after each build)
+    └── skills/
+        ├── {skill-name}/           ← one folder per skill, no category subfolders
+        │   ├── SKILL.md            ← entry point for any AI tool
+        │   └── references/         ← detailed content files
+        ├── {another-skill}/
+        │   ├── SKILL.md
+        │   └── references/
+        └── ...
+```
+
+**Rules:**
+- `.agents/SKILL.md` is the master index — always update it after every build or update
+- All skills live directly under `.agents/skills/` — no category subdirectories
+- Each skill folder is self-contained and can be loaded independently by any AI tool
+
+---
+
 Folder structures for each domain type. Select the template matching the skill's domain. Adapt file names to match the specific skill content — these are starting points, not rigid rules.
 
 **Naming rules:**
