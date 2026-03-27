@@ -1,130 +1,144 @@
-# AI Skill Builder
+<![CDATA[<div align="center">
 
-**Version:** 0.1.0 | **Author:** Mustapha Boufous | **License:** MIT
+# 🧠 Skill Builder
 
-A domain-adaptive AI skill generator. Build structured, self-contained skill folders from documentation, design references, and expert knowledge — readable by any LLM on any AI tool.
+**A Smart, Adaptive AI Skill Generator Plugin for Claude Cowork**
 
----
+[![Version](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](https://github.com/itotchiya/skill-builder)
+[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![Author](https://img.shields.io/badge/author-Mustapha%20Boufous-purple?style=flat-square)](https://github.com/itotchiya)
+[![Platform](https://img.shields.io/badge/platform-Claude%20Cowork-orange?style=flat-square)](https://claude.ai)
 
-## What It Does
+*Build structured, self-contained knowledge bases from any documentation — readable by any AI on any tool.*
 
-The AI Skill Builder plugin generates complete knowledge bases (called "skills") that any AI model can load to gain expert-level understanding of any topic. Skills are organized in an isolated vault on your file system, with no connections to other knowledge bases.
-
-**Supported domains:** Engineering, Design, Marketing, Legal, Finance, Trading, Sales, Product, Data Analytics, and any custom domain.
-
-**Supported output tools:** Cowork, Claude Code, Cursor, Windsurf, Kimi Code, Codex, OpenCode, Antigravity, or any LLM that can read Markdown files.
-
----
-
-## Components
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| `/build [topic]` | Build a new skill from scratch. Asks domain-adaptive questions, activates an expert agent persona, scrapes documentation or processes references, and generates a structured skill folder. |
-| `/browse [category or skill]` | Browse your skill vault by category or look up a specific skill. |
-| `/update [skill name]` | Refresh an existing skill with new documentation, version updates, or additional content. |
-
-### Skill
-
-**`skill-builder`** — The core intelligence layer. Loads automatically when any command runs. Contains the full 4-phase build process, domain detection logic, agent persona selection, and output generation rules.
-
-### Agent
-
-**`skill-architect`** — Autonomous skill generation agent. Use when you want Claude to handle the full pipeline (scoping → scraping → building) with minimal interruption.
+</div>
 
 ---
 
-## Setup
+## ✨ What Is Skill Builder?
 
-### 1. Set your vault path
+**Skill Builder** is a Cowork plugin that turns raw documentation, URLs, and expert knowledge into clean, structured **skill folders** that any LLM can read and load instantly.
 
-Edit `config/vault-path.txt` and replace the default path with where you want skills stored:
+Think of it as a knowledge factory: you point it at a topic, it asks the right questions, activates the right expert agent, scrapes or processes your references, and builds a complete, self-contained skill — ready for Claude, Cursor, Windsurf, or any other AI tool.
 
-**Windows:**
+**Supported domains:** Engineering · Design · Marketing · Legal · Finance · Trading · Sales · Product · Data · and any custom domain.
+
+---
+
+## 🚀 Installation in Claude Cowork
+
+### Step 1 — Download the plugin
+
+Download the latest `.plugin` file from the [Releases](https://github.com/itotchiya/skill-builder/releases) page, **or** clone the repo:
+
+```bash
+git clone https://github.com/itotchiya/skill-builder.git
 ```
-C:\Users\YourName\Workspace\ai-brain-vault\AI Skill Builder
+
+### Step 2 — Install in Cowork
+
+1. Open **Claude Cowork** on your desktop
+2. Click the **Plugins** icon in the sidebar (puzzle piece)
+3. Click **"Install from file"**
+4. Select the downloaded `skill-builder.plugin` file
+5. Click **Install** — the plugin activates immediately
+
+> **Alternative:** If you cloned the repo, point Cowork to the folder directly via **"Install from folder"**.
+
+### Step 3 — Set your vault path *(optional)*
+
+By default, skills are saved to `~/Agent-skills`. To change this, edit the file:
+
+```
+config/vault-path.txt
 ```
 
-**macOS / Linux:**
+**Windows example:**
 ```
-/Users/yourname/Documents/ai-skill-builder
+C:\Users\YourName\Workspace\Agent-skills
 ```
 
-The vault will be created automatically when you build your first skill.
+**macOS / Linux example:**
+```
+/Users/yourname/Documents/Agent-skills
+```
 
-### 2. Install the plugin
+> If you have **Obsidian MCP** connected, the plugin will automatically detect it and ask whether you want to save skills to your Obsidian vault or your local folder.
 
-Drop this folder into your AI tool's plugin directory or install via the `.plugin` file.
+### Step 4 — Build your first skill
 
-### 3. Build your first skill
+Type in Cowork chat:
 
 ```
 /build Next.js 15
 ```
 
----
-
-## Usage
-
-### Building a new skill
-
-```
-/build Next.js 15
-/build GDPR compliance
-/build dark dashboard design system
-/build options trading strategy
-/build cold email outreach sequences
-```
-
-When you run `/build`, the plugin will:
-1. Detect the domain and activate the matching expert agent
-2. Ask you 5-20 targeted questions to scope the skill
-3. Scrape documentation (for technical skills) or process your references
-4. Generate a complete skill folder in your vault
-5. Update the vault index
-
-### Browsing your vault
-
-```
-/browse                     → overview of all categories
-/browse engineering         → list engineering skills
-/browse nextjs-15           → show skill details
-```
-
-### Updating a skill
-
-```
-/update nextjs-15           → refresh with latest Next.js docs
-/update gdpr-compliance     → update with recent regulatory changes
-```
-
-### Using a skill in any AI tool
-
-Once built, point any AI tool to the skill:
-
-```
-"Load the nextjs-15 skill from my AI Skill Builder vault"
-```
-
-Or reference the file directly:
-```
-{vault-path}/engineering/nextjs-15/SKILL.md
-```
+That's it. The plugin takes over from there.
 
 ---
 
-## Vault Structure
+## 🛠️ Commands
+
+| Command | What it does |
+|---|---|
+| `/build [topic]` | Build a new skill from scratch with expert guidance |
+| `/browse [category]` | Browse your skill vault by domain or search by name |
+| `/update [skill name]` | Refresh an existing skill with new docs or version updates |
+
+---
+
+## 🔄 How It Works
+
+When you run `/build`, the plugin follows a 4-phase process:
 
 ```
-{your-vault-path}/
-├── INDEX.md                        ← master navigation
+Phase 1 — DETECT        Identifies the domain and activates a matching expert agent persona
+Phase 2 — SCOPE         Asks you 5–20 targeted questions to understand depth and focus
+Phase 3 — GENERATE      Scrapes docs / processes references / builds structured content
+Phase 4 — STORE         Saves the skill to your vault (Obsidian or local folder)
+```
+
+### Storage detection
+
+Every time you build, the plugin checks:
+
+1. **Is Obsidian MCP connected?** → Offers to save inside your Obsidian vault
+2. **No Obsidian?** → Saves to your local `Agent-skills` folder
+
+You always choose. Nothing is saved without confirmation.
+
+---
+
+## 🤖 Agent Personas
+
+The plugin ships with **160+ specialized agent personas** across 16 domains. The right agent is automatically selected based on your topic:
+
+| Domain | Example Agents |
+|---|---|
+| Engineering | Senior Developer, Software Architect, DevOps Automator |
+| Design | UI Designer, UX Architect, Brand Guardian |
+| Marketing | SEO Specialist, Content Creator, Growth Hacker |
+| Sales | Deal Strategist, Outbound Specialist, Discovery Coach |
+| Legal | Compliance Auditor, Contract Reviewer |
+| Product | Product Manager, Trend Researcher, Sprint Prioritizer |
+| ... | 10+ more domains |
+
+The active agent is always announced before questioning begins so you can redirect if needed.
+
+---
+
+## 📁 Vault Structure
+
+All skills are saved in a clean, navigable structure:
+
+```
+Agent-skills/
+├── INDEX.md                      ← master navigation
 ├── engineering/
 │   ├── _INDEX.md
-│   └── {skill-name}/
-│       ├── SKILL.md                ← entry point
-│       └── references/             ← detailed content
+│   └── nextjs-15/
+│       ├── SKILL.md              ← entry point for any AI tool
+│       └── references/           ← deep-dive content
 ├── design/
 ├── marketing/
 ├── legal/
@@ -135,27 +149,53 @@ Or reference the file directly:
 └── custom/
 ```
 
----
+Once built, load any skill in any AI tool with:
 
-## How Agent Personas Work
-
-The plugin selects an expert agent persona based on the skill domain. This shapes how questions are asked, what depth is prioritized, and how the output is structured. The active agent is always announced before questioning begins so you can redirect if needed.
-
-Agent personas are based on the [agency-agents](https://github.com/msitarzewski/agency-agents) framework — a collection of 144+ specialized AI agents across engineering, design, marketing, legal, finance, sales, product, and more.
+```
+"Load the nextjs-15 skill from my Agent-skills vault"
+```
 
 ---
 
-## Customization
+## 💡 Example Builds
 
-See `CONNECTORS.md` for configuration options.
-
-The only required configuration is the vault path in `config/vault-path.txt`.
+```
+/build Next.js 15
+/build GDPR compliance for SaaS
+/build dark dashboard design system
+/build options trading strategy
+/build cold email outreach sequences
+/build React Query v5
+/build Stripe integration
+```
 
 ---
 
-## References
+## 📋 Requirements
 
-- [agency-agents](https://github.com/msitarzewski/agency-agents) — agent persona library
-- [skills.sh](https://skills.sh) — AI skill directory
-- [Anthropic Skills](https://github.com/anthropics/skills) — official skill examples
-- [Claude Skills Docs](https://code.claude.com/docs/en/skills) — skill format specification
+- **Claude Cowork** (desktop app, any version with plugin support)
+- An active Claude account
+- *(Optional)* Obsidian with the Local REST API plugin, connected via MCP
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+
+---
+
+## 📄 License
+
+MIT © [Mustapha Boufous](https://github.com/itotchiya)
+
+---
+
+<div align="center">
+
+Made with ❤️ for the Claude Cowork community
+
+**[⭐ Star this repo](https://github.com/itotchiya/skill-builder)** if it helps you build smarter AI workflows
+
+</div>
+]]>
