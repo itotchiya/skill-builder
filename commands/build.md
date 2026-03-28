@@ -159,7 +159,9 @@ Every `.md` file must be MD Blueprint compliant (R1–R16):
 - XML tags for rules/instructions blocks
 - Tables for structured data, not nested bullets
 - Code blocks always have language tags
-- All internal links are relative paths
+- All internal links use standard relative markdown: `[Label](./references/file.md)`
+  → This format works in Obsidian, GitHub, VS Code, Cursor, and every other tool
+  → Never use [[wikilinks]], absolute paths, or URLs for local file navigation
 
 ---
 
